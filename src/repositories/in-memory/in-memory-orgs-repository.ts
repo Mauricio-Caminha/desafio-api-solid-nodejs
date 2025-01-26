@@ -15,7 +15,6 @@ export class InMemoryOrgsRepository implements OrgsRepository {
     };
 
     this.items.push(org);
-
     return org;
   }
 
