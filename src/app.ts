@@ -22,6 +22,9 @@ app.register(fastifyJwt, {
 app.register(fastifyCookie);
 
 // TODO: Add routes here
+app.get("/", async (request, reply) => {
+  return { hello: "world" };
+});
 
 app.setErrorHandler((error, request, reply) => {
   if (error instanceof ZodError) {
