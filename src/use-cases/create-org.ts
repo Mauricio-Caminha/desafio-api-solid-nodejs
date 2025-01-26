@@ -6,6 +6,8 @@ import {
   CreateOrgUseCaseRequest,
 } from "@/@types/orgs-use-case";
 import { OrgAlreadyExistsError } from "./errors/org-already-exists-error";
+import { InvalidAdressError } from "./errors/invalid-adress-error";
+import { InvalidPhoneNumberError } from "./errors/invalid-phone-number-error";
 
 export class CreateOrgUseCase {
   constructor(private orgsRepository: OrgsRepository) {}
@@ -26,10 +28,24 @@ export class CreateOrgUseCase {
   }: CreateOrgUseCaseRequest): Promise<CreateOrgUseCaseResponse> {
     const password_hash = await hash(password, 6);
 
-    const userAlreadyExists = await this.orgsRepository.findByEmail(email);
+    const orgAlreadyExists = await this.orgsRepository.findByEmail(email);
 
-    if (userAlreadyExists) {
+    if (orgAlreadyExists) {
       throw new OrgAlreadyExistsError();
+    }
+
+    const isAdressCorrect = Boolean(
+      cep && state && city && neighborhood && street
+    );
+
+    if (!isAdressCorrect) {
+      throw new InvalidAdressError();
+    }
+
+    const isPhoneIncorrect = /[a-zA-Z]/.test(whatsapp);
+
+    if (isPhoneIncorrect) {
+      throw new InvalidPhoneNumberError();
     }
 
     const org = await this.orgsRepository.create({

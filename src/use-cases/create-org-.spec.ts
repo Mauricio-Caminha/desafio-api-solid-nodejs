@@ -8,18 +8,18 @@ import { OrgAlreadyExistsError } from "./errors/org-already-exists-error";
 let inMemoryOrgsRepository: InMemoryOrgsRepository;
 let createOrgUseCase: CreateOrgUseCase;
 
-describe("Register Orgs Use Case", () => {
+describe("Create Org Use Case", () => {
   beforeEach(() => {
     inMemoryOrgsRepository = new InMemoryOrgsRepository();
     createOrgUseCase = new CreateOrgUseCase(inMemoryOrgsRepository);
   });
 
-  it("should be able to register", async () => {
+  it("should be able to create a new ORG", async () => {
     const { org } = await createOrgUseCase.execute({
       name: "Pets Orgs",
       author_name: "Mauri",
       email: "org@email.com",
-      whatsapp: "123456789",
+      whatsapp: "123456788",
       password: "123456",
       cep: "88888888",
       city: "City",
