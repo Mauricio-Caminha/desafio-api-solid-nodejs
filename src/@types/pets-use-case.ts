@@ -1,0 +1,16 @@
+import { Pet } from "@prisma/client";
+
+export interface CreatePetUseCaseRequest {
+  name: string;
+  about: string;
+  age: string;
+  size: string;
+  energy_level: string;
+  environment: string;
+  state: string;
+  org_id: string;
+}
+
+export interface CreatePetUseCaseResponse {
+  pet: Pet;
+}
