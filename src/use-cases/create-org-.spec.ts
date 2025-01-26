@@ -2,20 +2,20 @@ import { expect, it, describe, beforeEach } from "vitest";
 import { compare } from "bcryptjs";
 
 import { InMemoryOrgsRepository } from "@/repositories/in-memory/in-memory-orgs-repository";
-import { RegisterUseCase } from "@/use-cases/registerOrg";
-import { UserAlreadyExistsError } from "./errors/user-already-exists-error";
+import { CreateOrgUseCase } from "@/use-cases/create-org";
+import { OrgAlreadyExistsError } from "./errors/org-already-exists-error";
 
 let inMemoryOrgsRepository: InMemoryOrgsRepository;
-let registerUseCase: RegisterUseCase;
+let createOrgUseCase: CreateOrgUseCase;
 
 describe("Register Orgs Use Case", () => {
   beforeEach(() => {
     inMemoryOrgsRepository = new InMemoryOrgsRepository();
-    registerUseCase = new RegisterUseCase(inMemoryOrgsRepository);
+    createOrgUseCase = new CreateOrgUseCase(inMemoryOrgsRepository);
   });
 
   it("should be able to register", async () => {
-    const { org } = await registerUseCase.execute({
+    const { org } = await createOrgUseCase.execute({
       name: "Pets Orgs",
       author_name: "Mauri",
       email: "org@email.com",
@@ -34,7 +34,7 @@ describe("Register Orgs Use Case", () => {
   });
 
   it("should hash the password upon registration", async () => {
-    const { org } = await registerUseCase.execute({
+    const { org } = await createOrgUseCase.execute({
       name: "Pets Orgs",
       author_name: "Mauri",
       email: "org@email.com",
@@ -55,9 +55,7 @@ describe("Register Orgs Use Case", () => {
   });
 
   it("should not be able to register with the same email twice", async () => {
-    const email = "johndoe@example.com";
-
-    await registerUseCase.execute({
+    await createOrgUseCase.execute({
       name: "Pets Orgs",
       author_name: "Mauri",
       email: "org@email.com",
@@ -73,20 +71,20 @@ describe("Register Orgs Use Case", () => {
     });
 
     await expect(() =>
-      registerUseCase.execute({
-        name: "Pets Orgs",
-        author_name: "Mauri",
+      createOrgUseCase.execute({
+        name: "Cats Orgs",
+        author_name: "John",
         email: "org@email.com",
-        whatsapp: "123456789",
+        whatsapp: "99999999",
         password: "123456",
-        cep: "88888888",
-        city: "City",
-        state: "State",
+        cep: "91280934",
+        city: "Poa",
+        state: "Rs",
         neighborhood: "Neighborhood",
         street: "Street",
         latitude: 0,
         longitude: 0,
       })
-    ).rejects.toBeInstanceOf(UserAlreadyExistsError);
+    ).rejects.toBeInstanceOf(OrgAlreadyExistsError);
   });
 });

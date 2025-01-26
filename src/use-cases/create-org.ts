@@ -2,12 +2,12 @@ import { hash } from "bcryptjs";
 
 import { OrgsRepository } from "@/@types/orgs-repository";
 import {
-  RegisterUseCaseResponse,
-  RegisterUseCaseRequest,
+  CreateOrgUseCaseResponse,
+  CreateOrgUseCaseRequest,
 } from "@/@types/orgs-use-case";
-import { UserAlreadyExistsError } from "./errors/user-already-exists-error";
+import { OrgAlreadyExistsError } from "./errors/org-already-exists-error";
 
-export class RegisterUseCase {
+export class CreateOrgUseCase {
   constructor(private orgsRepository: OrgsRepository) {}
 
   async execute({
@@ -23,13 +23,13 @@ export class RegisterUseCase {
     street,
     latitude,
     longitude,
-  }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
+  }: CreateOrgUseCaseRequest): Promise<CreateOrgUseCaseResponse> {
     const password_hash = await hash(password, 6);
 
     const userAlreadyExists = await this.orgsRepository.findByEmail(email);
 
     if (userAlreadyExists) {
-      throw new UserAlreadyExistsError();
+      throw new OrgAlreadyExistsError();
     }
 
     const org = await this.orgsRepository.create({

@@ -1,6 +1,6 @@
 import { Org } from "@prisma/client";
 
-export interface RegisterUseCaseRequest {
+export interface CreateOrgUseCaseRequest {
   name: string;
   author_name: string;
   email: string;
@@ -15,6 +15,6 @@ export interface RegisterUseCaseRequest {
   longitude: number;
 }
 
-export interface RegisterUseCaseResponse {
+export interface CreateOrgUseCaseResponse {
   org: Org;
 }
