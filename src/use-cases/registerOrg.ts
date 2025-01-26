@@ -8,7 +8,7 @@ import {
 import { UserAlreadyExistsError } from "./errors/user-already-exists-error";
 
 export class RegisterUseCase {
-  constructor(private usersRepository: OrgsRepository) {}
+  constructor(private orgsRepository: OrgsRepository) {}
 
   async execute({
     name,
@@ -26,13 +26,13 @@ export class RegisterUseCase {
   }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
     const password_hash = await hash(password, 6);
 
-    const userAlreadyExists = await this.usersRepository.findByEmail(email);
+    const userAlreadyExists = await this.orgsRepository.findByEmail(email);
 
     if (userAlreadyExists) {
       throw new UserAlreadyExistsError();
     }
 
-    const org = await this.usersRepository.create({
+    const org = await this.orgsRepository.create({
       name,
       author_name,
       email,
