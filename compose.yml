@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: bitnami/postgresql
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRESQL_USERNAME=docker
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_DATABASE=findafriend
+    volumes:
+      - postgres-data:/bitnami/postgresql
+    networks:
+      - find-a-friend-api
+
+volumes:
+  postgres-data:
+
+networks:
+  find-a-friend-api:
+    driver: bridge
