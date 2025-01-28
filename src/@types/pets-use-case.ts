@@ -14,3 +14,15 @@ export interface CreatePetUseCaseRequest {
 export interface CreatePetUseCaseResponse {
   pet: Pet;
 }
+
+export interface SearchPetUseCaseRequest {
+  city: string;
+  age?: string;
+  size?: string;
+  energy_level?: string;
+  environment?: string;
+}
+
+export interface SearchPetUseCaseResponse {
+  pets: Pet[];
+}
