@@ -26,3 +26,11 @@ export interface SearchPetUseCaseRequest {
 export interface SearchPetUseCaseResponse {
   pets: Pet[];
 }
+
+export interface GetPetDetailsUseCaseRequest {
+  pet_id: string;
+}
+
+export interface GetPetDetailsUseCaseResponse {
+  pet: Pet;
+}
