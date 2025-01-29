@@ -18,3 +18,12 @@ export interface CreateOrgUseCaseRequest {
 export interface CreateOrgUseCaseResponse {
   org: Org;
 }
+
+export interface FetchNearbyOrgsUseCaseRequest {
+  userLatitude: number;
+  userLongitude: number;
+}
+
+export interface FetchNearbyOrgsUseCaseResponse {
+  orgs: Org[];
+}
