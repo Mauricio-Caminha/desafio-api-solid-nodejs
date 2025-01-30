@@ -42,7 +42,6 @@ describe("Create Pet Use Case", () => {
       size: "Medium",
       energy_level: "High",
       environment: "Indoor",
-      state: "SP",
       org_id: org.id,
     });
 
@@ -63,7 +62,6 @@ describe("Create Pet Use Case", () => {
         size: "Medium",
         energy_level: "High",
         environment: "Indoor",
-        state: "SP",
         org_id: "non-existing-org-id",
       })
     ).rejects.toBeInstanceOf(OrgNotFoundError);

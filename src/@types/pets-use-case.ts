@@ -7,7 +7,6 @@ export interface CreatePetUseCaseRequest {
   size: string;
   energy_level: string;
   environment: string;
-  state: string;
   org_id: string;
 }
 
