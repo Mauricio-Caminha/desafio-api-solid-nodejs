@@ -27,8 +27,10 @@ export async function createAndAuthenticateOrg(app: FastifyInstance) {
   });
 
   const { token } = responseAuth.body;
+  const { id } = org;
 
   return {
     token,
+    id,
   };
 }
