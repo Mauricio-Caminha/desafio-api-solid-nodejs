@@ -1,12 +1,9 @@
 import { Prisma, Pet } from "@prisma/client";
 
 import { prisma } from "@/lib/prisma";
-import { PrismaOrgsRepository } from "./prisma-orgs-repository";
 import { FindAllParams, PetsRepository } from "@/@types/pets-repository";
 
 export class PrismaPetsRepository implements PetsRepository {
-  constructor(private orgsRepository: PrismaOrgsRepository) {}
-
   async create(data: Prisma.PetUncheckedCreateInput): Promise<Pet> {
     const pet = await prisma.pet.create({ data });
     return pet;
