@@ -3,7 +3,6 @@ import {
   FetchNearbyOrgsUseCaseResponse,
   FetchNearbyOrgsUseCaseRequest,
 } from "@/@types/orgs-use-case";
-import { OrgAlreadyExistsError } from "./errors/org-already-exists-error";
 
 export class FetchNearbyOrgsUseCase {
   constructor(private orgsRepository: OrgsRepository) {}
@@ -17,8 +16,10 @@ export class FetchNearbyOrgsUseCase {
       longitude: userLongitude,
     });
 
+    const orgsWithoutPassword = orgs.map(({ password, ...rest }) => rest);
+
     return {
-      orgs,
+      orgs: orgsWithoutPassword,
     };
   }
 }

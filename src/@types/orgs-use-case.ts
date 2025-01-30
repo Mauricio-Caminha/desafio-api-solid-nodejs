@@ -24,6 +24,8 @@ export interface FetchNearbyOrgsUseCaseRequest {
   userLongitude: number;
 }
 
+type OrgWithoutPassword = Omit<Org, "password">;
+
 export interface FetchNearbyOrgsUseCaseResponse {
-  orgs: Org[];
+  orgs: OrgWithoutPassword[];
 }
